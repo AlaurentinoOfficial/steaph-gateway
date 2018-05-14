@@ -2,10 +2,12 @@ import time
 from nrf24 import sendData
 from api import login, getEnvironment
 
+email = "alaurentino.br@gmail.com"
+password = "1234567890n"
 uuids = ["SEe879qdBGh2MKadjcQUjm78a"]
 
 def loop():
-    token = login("alaurentino.br@gmail.com", "1234567890n")["token"]
+    token = login(email, password)["token"]
 
     for uuid in uuids:
         status = getEnvironment(token, uuid)["status"]
