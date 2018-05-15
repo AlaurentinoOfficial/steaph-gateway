@@ -12,10 +12,7 @@ def loop():
     for uuid in uuids:
         status = getEnvironment(token, uuid)["status"]
         
-        if(status["status"]):
-            sendData("true")
-        else:
-            sendData("false")
+        sendData("true" if status else "false")
 
     time.sleep(5)
 

@@ -41,4 +41,6 @@ def sendData(message):
     receivedMessage = []
     radio.read(receivedMessage, radio.getDynamicPayloadSize())
 
+    radio.stopListening()
+
     print("Received: {}".format(receivedMessage))
