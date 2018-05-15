@@ -1,5 +1,5 @@
-from RPi.GPIO as GPIO
-from lib_nrf24/lib_nrf24 import NRF24
+import RPi.GPIO as GPIO
+from lib_nrf24 import NRF24
 import time
 import spidev
 
@@ -20,7 +20,7 @@ radio.enableDynamicPayloads()
 radio.enableAckPayload()
 
 radio.openWritingPipe(pipes[0])
-radio.openReadingPip(1, pipes[1])
+radio.openReadingPipe(1, pipes[1])
 radio.printDetails()
 
 def sendData(message):
