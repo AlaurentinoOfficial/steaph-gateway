@@ -10,7 +10,19 @@ def login(email, password):
     
     return requests.post(SERVER_HOST + '/login', data=json.dumps(payload), headers=headers).json()
 
-def getEnvironment(token, uuid):
+def getEnvironments(token):
+    headers = {'Authorization': token}
+
+    return requests.get(SERVER_HOST + '/environment', headers=headers).json()
+
+def getEnvironmentByUUID(token, uuid):
     headers = {'Authorization': token}
 
     return requests.get(SERVER_HOST + '/environment/' + uuid, headers=headers).json()
+
+if __name__ == "__main__":
+    token = login("alaurentino.br@gmail.com", "1234567890n")["token"]
+    environments = getEnvironments(token)
+
+    for env in environments:
+        print("true" if env["status"] else "false")
