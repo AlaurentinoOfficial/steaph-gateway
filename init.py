@@ -4,13 +4,13 @@ from api import login, getEnvironments, getEnvironmentByUUID
 
 email = "alaurentino.br@gmail.com"
 password = "1234567890n"
-uuids = ["SEe879qdBGh2MKadjcQUjm78a"]
 
 def loop():
     token = login("alaurentino.br@gmail.com", "1234567890n")["token"]
     environments = getEnvironments(token)
 
     for env in environments:
+        environment = getEnvironmentByUUID(token, env["uuid"])
         sendData("true" if env["status"] else "false")
 
     time.sleep(5)

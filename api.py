@@ -25,4 +25,5 @@ if __name__ == "__main__":
     environments = getEnvironments(token)
 
     for env in environments:
+        environment = getEnvironmentByUUID(token, env["uuid"])
         print("true" if env["status"] else "false")
