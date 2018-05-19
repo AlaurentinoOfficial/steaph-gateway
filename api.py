@@ -8,17 +8,16 @@ def login(email, password):
     payload = {'email': email, 'password': password}
     headers = {'content-type': 'application/json'}
     
-    return requests.post(SERVER_HOST + '/login', data=json.dumps(payload), headers=headers).json()
+    return requests.post(SERVER_HOST + '/login', data=json.dumps(payload), headers=headers)
 
 def getEnvironments(token):
-    headers = {'Authorization': token}
-
-    return requests.get(SERVER_HOST + '/environment', headers=headers).json()
+    return requests.get(SERVER_HOST + '/environment', headers={'Authorization': token})
 
 def getEnvironmentByUUID(token, uuid):
-    headers = {'Authorization': token}
+    return requests.get(SERVER_HOST + '/environment/' + uuid, headers={'Authorization': token})
 
-    return requests.get(SERVER_HOST + '/environment/' + uuid, headers=headers).json()
+def getSchedulesByUUID(token, uuid):
+    return requests.get(SERVER_HOST + '/environment/' + uuid + '/schedule', headers={'Authorization': token})
 
 if __name__ == "__main__":
     token = login("alaurentino.br@gmail.com", "1234567890n")["token"]
