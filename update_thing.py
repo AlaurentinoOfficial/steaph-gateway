@@ -4,14 +4,8 @@ from datetime import datetime
 from database import database
 from nrf24 import sendData
 
-def baseTime(time):
-    now = datetime.now()
-    now = now.replace(hour = time.hour, minute = time.minute, microsecond = 0)
-
-    return now
-
-def str_2_date(time):
-    return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
+baseTime = lambda time: datetime.now().replace(hour = time.hour, minute = time.minute, microsecond = 0)
+str_2_date = lambda time: datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 def update_things():
     while 1:
