@@ -1,1 +1,11 @@
-{"configured": false, "uuid": "1234567890asdfghjkltgb", "email": "", "password": "", "environments": [{"uuid": "nave_laboratorio_fisica", "schedule": [{"_id": "5b008dfec0b2091a0bd59d14", "environment": "5afe3e1d3b7a382d04626f5b", "start": "2018-05-19T13:00:04.000Z", "end": "2018-05-19T15:00:04.000Z", "day": 6, "__v": 0}, {"_id": "5b009c41c0b2091a0bd59d18", "environment": "5afe3e1d3b7a382d04626f5b", "start": "2018-05-19T03:00:55.000Z", "end": "2018-05-19T21:55:55.000Z", "day": 6, "__v": 0}]}]}
+{
+    "mqtt_server": "m14.cloudmqtt.com",
+    "mqtt_port": 18167,
+    "mqtt_user": "feorjysl",
+    "mqtt_password": "iPAiakR2OQUh",
+    "status": true,
+    "public_key": "k0c1234567890asdfghjkltgb",
+    "private_key": "d5hdsfu92jrkfdsopokplasdf",
+    "environments": [],
+    "environments_status": []
+}
