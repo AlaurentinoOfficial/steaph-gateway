@@ -2,13 +2,16 @@ import time
 import json
 from datetime import datetime
 from database import database
-#from nrf24 import sendData
+from nrf24 import sendData
 
 def baseTime(time):
     now = datetime.now()
     now = now.replace(hour = time.hour, minute = time.minute, microsecond = 0)
 
     return now
+
+def str_2_date(time):
+    return datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
 
 def update_things():
     while 1:
@@ -20,15 +23,13 @@ def update_things():
 
                 if len(env["schedule"]) > 0:
                     for schedule in env["schedule"]:
-                        start = baseTime(datetime.strptime(schedule["start"], "%Y-%m-%dT%H:%M:%S.%fZ"))
-                        end = baseTime(datetime.strptime(schedule["end"], "%Y-%m-%dT%H:%M:%S.%fZ"))
+                        start = baseTime(str_2_date(schedule["start"]))
+                        end = baseTime(str_2_date(schedule["end"]))
                         now = datetime.utcnow()
 
                         if now >= start and now < end and now.isoweekday() == schedule["day"]:
                             status = True
                             break
 
-                print("> Sended to " + env["uuid"] + " " + json.dumps({'status': status}))
-                #sendData(json.dumps({'status': status}))
-    
+                sendData(env['uuid'], json.dumps({'status': status}))
         time.sleep(5)

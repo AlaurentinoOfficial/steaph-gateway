@@ -24,6 +24,5 @@ def update_schedules():
             saveDatabase()
             time.sleep(10)
         except Exception as e:
-            print("\nConnetion Refused!\nWait 10 seconds\n\n")
-            print(e)
-            time.sleep(10)
+            print("\nConnetion Refused!\nWait 30 seconds\n")
+            time.sleep(30)
