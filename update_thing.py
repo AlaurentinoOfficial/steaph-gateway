@@ -43,7 +43,7 @@ def update_things():
 
                     try:
                         database["environments_status"][env['address']].append(value)
-                        
+
                     # Case the status of this env not alredy created
                     except:
                         database["environments_status"].append({env['address']: []})
@@ -55,4 +55,4 @@ def update_things():
                     pass
 
                 time.sleep(1/2)
-        time.sleep(5)
+        time.sleep(30)
