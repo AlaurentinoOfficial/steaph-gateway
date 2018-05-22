@@ -1,7 +1,7 @@
 import time
 import json
 from datetime import datetime
-from database import database
+from database import database, saveDatabase
 from nrf24 import EasyNRF24
 
 baseTime = lambda time: datetime.now().replace(hour = time.hour, minute = time.minute, microsecond = 0)
@@ -29,4 +29,18 @@ def update_things():
 
                 status = radio.sendData(env['address'], json.dumps({'status': status}), max_time=EasyNRF24.MAX_RECEIVE_TIME_CONNECTION)
                 print("Do something with this data: " + status)
+
+                try:
+                    value = json.loads(status)
+
+                    try:
+                        database["environments_status"][env['address']].append(value)
+                    except:
+                        database["environments_status"].append({env['address']: []})
+                        database["environments_status"][env['address']].append(value)
+                except:
+                    pass
+                    
+                saveDatabase()
+                time.sleep(1/2)
         time.sleep(5)
