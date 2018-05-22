@@ -5,33 +5,33 @@ from lib_nrf24 import NRF24
 class EasyNRF24:
     MAX_RECEIVE_TIME_CONNECTION = 5
 
-    def __init__(csn=0, ce=17, debug=False):
+    def __init__(self, csn=0, ce=17, debug=False):
         # RPi configs
         GPIO.setwarmings(False)
         GPIO.setmode(GPIO.BCM)
 
         # Radio setup
-        radio = NRF24(GPIO, spidev.SpiDev())
-        radio.begin(csn, ce)
+        self.radio = NRF24(GPIO, spidev.SpiDev())
+        self.radio.begin(csn, ce)
 
         # Set the data stream configs
-        radio.serPayloadSize(32)
-        radio.setChannel(0x76)
-        radio.setDataRate(NRF24.BR_2MBPS)
-        radio.setPALevel(NRF24.PA_MAX)
+        self.radio.serPayloadSize(32)
+        self.radio.setChannel(0x76)
+        self.radio.setDataRate(NRF24.BR_2MBPS)
+        self.radio.setPALevel(NRF24.PA_MAX)
 
         # Use dynamic payloads and use Ack
-        radio.setAutoAck(True)
-        radio.enableDynamicPayloads()
-        radio.enableAckPayload()
+        self.radio.setAutoAck(True)
+        self.radio.enableDynamicPayloads()
+        self.radio.enableAckPayload()
 
         if debug:
-            radio.printDetails()
+            self.radio.printDetails()
 
-    def sendData(address, payload, max_time=EasyNRF24.MAX_RECEIVE_TIME_CONNECTION):
+    def sendData(self, address, payload, max_time=EasyNRF24.MAX_RECEIVE_TIME_CONNECTION):
         # Configure the connection
-        radio.openReadingPipe(1, address)
-        radio.openWritingPipe(address)
+        self.radio.openReadingPipe(1, address)
+        self.radio.openWritingPipe(address)
 
         # Convert in valid payload
         payload = list(payload)
@@ -40,11 +40,11 @@ class EasyNRF24:
 
         # Send the converted payload
         print('NRF24> Sending to ' + address)
-        radio.write(payload)
+        self.radio.write(payload)
 
 
         # Start to receive
-        radio.startListening()
+        self.radio.startListening()
         start = time.time()
 
         # Wait by connection
@@ -59,7 +59,7 @@ class EasyNRF24:
         
         # Read the received message
         received_msg = []
-        radio.read(received_msg, radio.getDynamicPayloadSize())
+        self.radio.read(received_msg, radio.getDynamicPayloadSize())
 
         # Convert bytes to string
         translated = ""
@@ -68,6 +68,6 @@ class EasyNRF24:
                 string += chr(n)
 
         # Stop to receive
-        radio.stopListening()
+        self.radio.stopListening()
 
         return translated
