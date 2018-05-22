@@ -1,1 +1,11 @@
-{"mqtt_server": "m14.cloudmqtt.com", "mqtt_port": 18167, "mqtt_user": "feorjysl", "mqtt_password": "iPAiakR2OQUh", "status": true, "public_key": "k0c1234567890asdfghjkltgb", "private_key": "d5hdsfu92jrkfdsopokplasdf", "environments": [], "environments_status": []}
+{
+    "mqtt_server": "m14.cloudmqtt.com",
+    "mqtt_port": 18167,
+    "mqtt_user": "feorjysl",
+    "mqtt_password": "iPAiakR2OQUh",
+    "status": true, 
+    "public_key": "k0c1234567890asdfghjkltgb",
+    "private_key": "d5hdsfu92jrkfdsopokplasdf",
+    "environemnts": [],
+    "environments_status": []
+}
