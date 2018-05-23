@@ -10,6 +10,19 @@ baseTime = lambda time: datetime.now().replace(hour = time.hour, minute = time.m
 # Lambda to convert Time ISO String to Pyhton datetime
 str_2_date = lambda time: datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
 
+# Convert string to a valid address (List of hex values)
+str_2_addr = lambda x: [ord(y) for y in list(x)]
+
+# Convert string 
+def str_2_addr(address):
+    address = list(address)
+
+    result = []
+    for y in address:
+        result.append(ord(y))
+    
+    return result
+
 def update_things():
     radio = EasyNRF24(csn = 0, ce = 17)
 
@@ -33,6 +46,8 @@ def update_things():
                             status = True
                             break
 
+                address = str_2_addr(env["address"])
+
                 # Send the schedule by RF to End Points (Things)
                 status = radio.sendData(env['address'], json.dumps({'status': status}), max_time=EasyNRF24.MAX_RECEIVE_TIME_CONNECTION)
                 print("Do something with this data: " + status)
@@ -42,12 +57,12 @@ def update_things():
                     value = json.loads(status)
 
                     try:
-                        database["environments_status"][env['address']].append(value)
+                        database["environments_status"][address].append(value)
 
                     # Case the status of this env not alredy created
                     except:
-                        database["environments_status"].append({env['address']: []})
-                        database["environments_status"][env['address']].append(value)
+                        database["environments_status"].append({address: []})
+                        database["environments_status"][address].append(value)
 
                     saveDatabase()
                 # Case the response can't be converted to JSON
