@@ -13,16 +13,6 @@ str_2_date = lambda time: datetime.strptime(time, "%Y-%m-%dT%H:%M:%S.%fZ")
 # Convert string to a valid address (List of hex values)
 str_2_addr = lambda x: [ord(y) for y in list(x)]
 
-# Convert string 
-def str_2_addr(address):
-    address = list(address)
-
-    result = []
-    for y in address:
-        result.append(ord(y))
-    
-    return result
-
 def update_things():
     radio = EasyNRF24(csn = 0, ce = 17)
 
