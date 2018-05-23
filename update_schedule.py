@@ -7,6 +7,9 @@ from database import database, saveDatabase
 def on_connect(client, userdata, flags, rc):
     print("MQTT> Connected")
 
+    # Publish to server send last schedules
+    client.publish("/steaph/things/" + database["public_key"] + "/environments/update", payload="", qos=1)
+
     # Subscribe that topic
     client.subscribe("/steaph/things/" + database["public_key"] + "/environments", 1)
 
