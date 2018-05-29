@@ -39,22 +39,15 @@ def update_things():
                 address = str_2_addr(env["address"])
 
                 # Send the schedule by RF to End Points (Things)
-                status = radio.sendData(env['address'], json.dumps({'status': status}), max_time=EasyNRF24.MAX_RECEIVE_TIME_CONNECTION)
-                print("Do something with this data: " + status)
+                status = radio.sendData(env['address'], json.dumps({'status': status}))
 
                 # Try to save the response of End Point and save in Database
                 try:
                     value = json.loads(status)
 
-                    try:
-                        database["environments_status"][address].append(value)
-
-                    # Case the status of this env not alredy created
-                    except:
-                        database["environments_status"].append({address: []})
-                        database["environments_status"][address].append(value)
-
+                    database["environments_status"].append({'address': address, 'value': value, 'date': datetime.datetime.now().isoformat() + 'Z'})
                     saveDatabase()
+
                 # Case the response can't be converted to JSON
                 except:
                     pass
